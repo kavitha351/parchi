@@ -1,0 +1,25 @@
+const connectToMongo  = require('./db');
+const express = require('express')
+const cors = require('cors');
+
+connectToMongo();
+
+const app = express()
+const port = process.env.PORT || 5000;
+
+app.use(cors({
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true
+}));
+
+app.use(express.json());
+app.use(cors());
+
+// Available Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/parchi', require('./routes/parchi'));
+
+app.listen(port, () => {
+  console.log(`Example app listening on port http://localhost:${port}`)
+})
