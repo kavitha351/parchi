@@ -1,3 +1,3 @@
-const host = "https://parchi-34hw.onrender.com";
+const host = "import.meta.env.VITE_HOST";
 
 export default host;
