@@ -8,6 +8,11 @@ connectToMongo();
 const app = express()
 const port = process.env.PORT || 5000;
 
+// TEST purpose route
+app.get('/', (req, res) => {
+  res.send('Parchi backend running 🚀');
+});
+
 app.use(cors({
   origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
