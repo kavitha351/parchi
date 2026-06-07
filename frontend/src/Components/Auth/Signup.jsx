@@ -26,9 +26,9 @@ const Signup = () => {
     const json = await response.json();
     console.log(json);
 
-    if (json.authToken) {
+    if (json.authtoken) {
 
-      localStorage.setItem("token", json.authToken);
+      localStorage.setItem("token", json.authtoken);
 
       navigate('/');
     } else {
