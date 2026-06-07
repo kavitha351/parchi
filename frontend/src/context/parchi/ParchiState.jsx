@@ -8,30 +8,40 @@ const ParchiState = (props) => {
     const [loading, setLoading] = useState(false);
 
     const getParchi = async () => {
-        try {
-            setLoading(true);
-            const response = await fetch(`${host}/api/parchi/fetchalllist`, {
-                method: 'GET',
-                headers: {
-                    "auth-token": localStorage.getItem('token')
-                }
-            });
 
-            const data = await response.json();
+    const token = localStorage.getItem('token');
 
-            if(Array.isArray(data)) {
-                setParchi(data);
-            }else{
-                console.error('Not an array:' , data);
-                setParchi([]);
+    if (!token) {
+        console.log('No token found');
+        setParchi([]);
+        return;
+    }
+
+    try {
+        setLoading(true);
+
+        const response = await fetch(`${host}/api/parchi/fetchalllist`, {
+            method: 'GET',
+            headers: {
+                "auth-token": token
             }
+        });
 
-        } catch (error) {
-            console.error('Error fetching parchi:', error);
-        } finally {
-            setLoading(false);
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+            setParchi(data);
+        } else {
+            console.error('Not an array:', data);
+            setParchi([]);
         }
-    };
+
+    } catch (error) {
+        console.error('Error fetching parchi:', error);
+    } finally {
+        setLoading(false);
+    }
+};
 
     // add parchi
     const addParchi = async (parchiData) => {

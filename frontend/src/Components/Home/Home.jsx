@@ -6,9 +6,11 @@ const Home = () => {
   const {parchi, getParchi , loading} = useContext(parchiContext);
   const [expandedId, setExpandedId] = useState(null);
   
-  useEffect(() => {
-    getParchi();
-  }, []);
+useEffect(() => {
+    if (localStorage.getItem('token')) {
+        getParchi();
+    }
+}, []);
 
 
   return (
