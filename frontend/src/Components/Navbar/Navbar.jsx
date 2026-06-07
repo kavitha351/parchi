@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem('token');
     navigate('/login');
@@ -23,14 +25,23 @@ const Navbar = () => {
         <div className='hidden md:flex gap-6'>
           <NavLink to="/newlist">New List</NavLink>
           <NavLink to="/misseditems">Missed Items</NavLink>
-          <NavLink to="/signup">Signup</NavLink>
-          <button onClick = {handleLogout}>Logout</button>
         </div>
 
         {/* Right Buttons */}
         <div className='hidden md:flex gap-2'>
-          <NavLink to="/login" className='bg-slate-700 text-white px-4 py-2 rounded-full'>Login</NavLink>
-          <button className='bg-slate-700 text-white px-4 py-2 rounded-full'>P</button>
+          {
+            !localStorage.getItem('token') ? (
+              <>
+              <NavLink to="/login" className='bg-slate-700 text-white px-4 py-2 rounded-full'>Login</NavLink>
+          <NavLink to="/signup" className='bg-slate-700 text-white px-4 py-2 rounded-full'>Signup</NavLink>
+          </>
+            ): (
+              <>
+              <button onClick = {handleLogout} className='bg-slate-700 text-white px-4 py-2 rounded-full'>Logout</button>
+              <button className='bg-slate-700 text-white px-4 py-2 rounded-full'>P</button>
+              </>
+            )
+          }
         </div>
 
         {/* Mobile Menu Button */}
