@@ -20,6 +20,7 @@ const Navbar = () => {
           <NavLink to="/newlist">New List</NavLink>
           <NavLink to="/misseditems">Missed Items</NavLink>
           <NavLink to="/signup">Signup</NavLink>
+          <NavLink to="/login">Login</NavLink>
         </div>
 
         {/* Right Buttons */}

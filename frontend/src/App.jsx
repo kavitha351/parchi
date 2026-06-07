@@ -6,6 +6,7 @@ import Misseditems from './Components/Misseditems/Misseditems'
 import Home from './Components/Home/Home'
 import ParchiState from './context/parchi/ParchiState'
 import Signup from './Components/Auth/Signup'
+import Login from './Components/Auth/Login'
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route path='/newlist' element={<Newlist />}></Route>
             <Route path='/misseditems' element={<Misseditems />}></Route>
             <Route path='/signup' element={<Signup />} />
+            <Route path='/login' element={<Login />} />
           </Routes>
         </div>
       </BrowserRouter>
