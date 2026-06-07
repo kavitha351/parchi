@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import parchiContext from '../../context/parchi/ParchiContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,6 +6,12 @@ const NewList =  () => {
     const [title, setTitle ] = useState('');
     const { addParchi } = useContext(parchiContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+      if (!localStorage.getItem('token')) {
+        navigate('/login');
+      }
+    })
 
     const handleSubmit = async (e) => {
         e.preventDefault();
