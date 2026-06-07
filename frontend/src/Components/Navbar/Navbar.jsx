@@ -19,6 +19,7 @@ const Navbar = () => {
         <div className='hidden md:flex gap-6'>
           <NavLink to="/newlist">New List</NavLink>
           <NavLink to="/misseditems">Missed Items</NavLink>
+          <NavLink to="/signup">Signup</NavLink>
         </div>
 
         {/* Right Buttons */}
