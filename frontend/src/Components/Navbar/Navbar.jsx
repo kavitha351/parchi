@@ -4,6 +4,10 @@ import { NavLink } from 'react-router-dom'
 const Navbar = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  }
 
   return (
     <nav className='py-4 px-4 md:px-12 sticky top-0 z-50'>
@@ -20,12 +24,12 @@ const Navbar = () => {
           <NavLink to="/newlist">New List</NavLink>
           <NavLink to="/misseditems">Missed Items</NavLink>
           <NavLink to="/signup">Signup</NavLink>
-          <NavLink to="/login">Login</NavLink>
+          <button onClick = {handleLogout}>Logout</button>
         </div>
 
         {/* Right Buttons */}
         <div className='hidden md:flex gap-2'>
-          <button className='bg-slate-700 text-white px-4 py-2 rounded-full'>Login</button>
+          <NavLink to="/login" className='bg-slate-700 text-white px-4 py-2 rounded-full'>Login</NavLink>
           <button className='bg-slate-700 text-white px-4 py-2 rounded-full'>P</button>
         </div>
 
@@ -43,7 +47,9 @@ const Navbar = () => {
         <div className="mt-2 bg-white shadow-md rounded-lg flex flex-col items-center gap-4 py-4 md:hidden">
           <NavLink to="/newlist" onClick={()=>setMenuOpen(false)}>New List</NavLink>
           <NavLink to="/misseditems" onClick={()=>setMenuOpen(false)}>Missed Items</NavLink>
-          <button className='bg-slate-700 text-white px-4 py-2 rounded-full'>Login</button>
+          <NavLink to="/signup">Signup</NavLink>
+          <NavLink to="/login">Login</NavLink>
+          <button onClick = {handleLogout}>Logout</button>
         </div>
       )}
     </nav>
