@@ -24,6 +24,7 @@ const Signup = () => {
     });
 
     const json = await response.json();
+    console.log(json);
 
     if (json.authToken) {
 
@@ -32,6 +33,7 @@ const Signup = () => {
       navigate('/');
     } else {
       alert("Signup failed");
+      console.error(error);
     }
   };
 
