@@ -76,7 +76,7 @@ const ParchiExpanded = ({ parchi }) => {
     >
       <option value="pending">⏳ Pending</option>
       <option value="found">✔ Found</option>
-      <option value="not_found">❌ Not Found</option>
+      <option value="not found">❌ Not Found</option>
     </select>
 
   </div>
