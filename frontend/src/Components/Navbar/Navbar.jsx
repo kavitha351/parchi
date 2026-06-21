@@ -1,15 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem('token');
     navigate('/login');
   }
+
+  useEffect(() => {
+
+    const fetchUser = async () => {
+
+        const token = localStorage.getItem('token');
+
+        if (!token) return;
+
+        const response = await fetch(`${host}/api/auth/getuser`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': token
+            }
+        });
+
+        const data = await response.json();
+
+        setUser(data);
+    };
+
+    fetchUser();
+
+}, []);
 
   return (
     <nav className='py-4 px-4 md:px-12 sticky top-0 z-50'>
@@ -38,7 +65,9 @@ const Navbar = () => {
             ): (
               <>
               <button onClick = {handleLogout} className='bg-slate-700 text-white px-4 py-2 rounded-full'>Logout</button>
-              <button className='bg-slate-700 text-white px-4 py-2 rounded-full'>P</button>
+              <button className='bg-slate-700 text-white px-4 py-2 rounded-full'>
+                {user?.name?.charAt(0).toUpperCase() || 'P'}
+              </button>
               </>
             )
           }
@@ -58,9 +87,16 @@ const Navbar = () => {
         <div className="mt-2 bg-white shadow-md rounded-lg flex flex-col items-center gap-4 py-4 md:hidden">
           <NavLink to="/newlist" onClick={()=>setMenuOpen(false)}>New List</NavLink>
           <NavLink to="/misseditems" onClick={()=>setMenuOpen(false)}>Missed Items</NavLink>
-          <NavLink to="/signup">Signup</NavLink>
-          <NavLink to="/login">Login</NavLink>
-          <button onClick = {handleLogout}>Logout</button>
+          {
+            !localStorage.getItem('token') ? (
+              <>
+              <NavLink to="/signup">Signup</NavLink>
+              <NavLink to="/login">Login</NavLink>
+              </>
+            ):(
+              <button onClick = {handleLogout}>Logout</button>
+            )
+          }
         </div>
       )}
     </nav>
